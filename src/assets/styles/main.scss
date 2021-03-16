@@ -1,15 +1,15 @@
 @import "variables.scss";
 
+@import "../../App.scss";
 @import "../../components/Icon/Icon.scss";
 @import "../../components/NavBar/NavBar.scss";
+@import "../../components/WeatherStatistic/WeatherStatistic.scss";
 
 body {
-    width: auto;
-    height: 100vh;
     padding: 0;
     margin: 0;
-    background: linear-gradient($COLOR_GRADIENT);
     color: $COLOR_TEXT;
     font-family: "Roboto", sans-serif;
+    font-weight: 100;
     font-size: 14px;
 }

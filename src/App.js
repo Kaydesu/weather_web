@@ -1,12 +1,14 @@
 import React from 'react';
-import NavBar from './components/NavBar/NavBar';
-
 import './assets/styles/main.scss';
+
+import NavBar from './components/NavBar/NavBar';
+import WeatherStatistic from './components/WeatherStatistic/WeatherStatistic';
 
 function App() {
     return (
-        <div className="weather-app">
+        <div className="weather-app-layout">
             <NavBar />
+            <WeatherStatistic/>
         </div>
     );
 }
