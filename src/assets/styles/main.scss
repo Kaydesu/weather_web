@@ -1,0 +1,15 @@
+@import "variables.scss";
+
+@import "../../components/Icon/Icon.scss";
+@import "../../components/NavBar/NavBar.scss";
+
+body {
+    width: auto;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background: linear-gradient($COLOR_GRADIENT);
+    color: $COLOR_TEXT;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}

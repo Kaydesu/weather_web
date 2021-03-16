@@ -1,0 +1,21 @@
+.navbar-wrapper {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+
+    .wa-icon {
+        font-size: 30px;
+    }
+
+    .navbar__location-container {
+        text-align: center;
+        .app-name {
+            font-size: 25px;
+        }
+        .location {
+            font-size: 18px;
+            color: $COLOR_TEXT_FADED;
+        }
+    }
+}
