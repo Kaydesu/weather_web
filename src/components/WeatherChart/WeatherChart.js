@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Bubble, Line } from 'react-chartjs-2';
+import { Bubble, Line, Scatter } from 'react-chartjs-2';
 import { convertToDayNight, generateTideData, generateTimeData, getFullDayTime, getPlottedDayTime, scale } from '../../utils/helpers';
 import { useWindowResize } from './useWindowResize';
 import sunImgSrc from '../../assets/images/sun.png';
@@ -54,7 +54,7 @@ function WeatherChart() {
 
     return (
         <div className="chart-container" ref={chartContainerRef} onScroll={handleScroll} >
-            <Line
+            {/* <Line
                 ref={chartRef}
                 width={canvasWidth}
                 height={chartHeight}
@@ -174,6 +174,124 @@ function WeatherChart() {
                         display: false,
                     },
                     animation: false
+                }}
+            /> */}
+            <Scatter
+                ref={chartRef}
+                width={canvasWidth}
+                height={chartHeight}
+                data={{
+                    datasets: [
+                        // Day time in days
+                        {
+                            label: "Daytime",
+                            xAxisID: "tideTime-x",
+                            yAxisID: "day-y",
+                            showLine: true,
+                            borderColor: "#f5793b",
+                            borderWidth: 2,
+                            fill: false,
+                            data: hourData.map((h) => {
+                                return {
+                                    x: h,
+                                    y: getPlottedDayTime(h)
+                                }
+                            })
+
+                        },
+                        // Day or night, step function:
+                        {
+                            type: "scatter",
+                            label: "Day/Night",
+                            yAxisID: "daynight-y",
+                            showLine: true,
+                            borderColor: "rgba(0, 0, 0, 0)",
+                            backgroundColor: "rgba(0, 0, 0, 0.2)",
+                            fill: true,
+                            steppedLine: true,
+                            data: hourData.map((h) => ({ x: h, y: convertToDayNight(h) }))
+                        },
+                        // Tide data in days:    
+                        {
+                            type: "scatter",
+                            label: "Tide",
+                            yAxisID: "tide-y",
+                            showLine: true,
+                            borderColor: "rgba(0, 0, 0, 0)",
+                            backgroundColor: "#c1e5f7",
+                            fill: true,
+                            data: hourData.map((h, i) => ({ x: h, y: tideData[i] }))
+                        }
+
+                    ]
+                }}
+                options={{
+                    maintainAspectRatio: false,
+                    responsive: false,
+                    scales: {
+                        xAxes: [
+                            {
+                                type: "linear",
+                                id: "tideTime-x",
+                                gridLines: {
+                                    display: false,
+                                },
+                                ticks: {
+                                    min: 0,
+                                    max: hourData[hourData.length - 1]
+                                }
+                            }
+                        ],
+                        yAxes: [
+                            {
+                                type: "linear",
+                                id: "day-y",
+                                display: false,
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    suggestedMax: 1.05,
+                                    suggestedMin: 0
+                                }
+                            },
+                            {
+                                type: "linear",
+                                id: "daynight-y",
+                                display: false,
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    suggestedMin: 0,
+                                    suggestedMax: 1,
+                                }
+                            },
+                            {
+                                type: "linear",
+                                id: "tide-y",
+                                display: false,
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    suggestedMin: 0,
+                                    suggestedMax: 10,
+                                }
+                            }
+                        ]
+                    },
+                    elements: {
+                        point: {
+                            radius: 0,
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
                 }}
             />
         </div>
