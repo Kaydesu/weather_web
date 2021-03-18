@@ -7,26 +7,33 @@ export const generateTimeData = (days) => {
     for (let i = 0; i < days * 24; i++) {
         output.push(i);
     }
+    output.push(output[output.length - 1] + 1);
     return output;
 }
 
 export const generateTideData = (days) => {
     let output = [];
-
-    for (let i = 0; i < days; i++) {
-        for (let j = 0; j < 24; j++) {
-            let min = 5;
-            let max = 7;
-            output.push(Math.random() * (max - min) + min);
-        }
+    let min = 0.5;
+    let max = 2;
+    for (let i = 0; i < days * 24; i += 6) {
+        output.push({
+            time: i,
+            waterLevel: Math.random() * (max - min) + min
+        })
     }
+
+    output.push({
+        time: output[output.length - 1].time + 6,
+        waterLevel: Math.random() * (max - min) + min
+    })
+
     return output;
 }
 
 export const convertToDayNight = (hour) => {
 
     // Recursive to get period hour
-    while(hour > 23) {
+    while (hour > 23) {
         hour = hour - 24;
     }
 
@@ -45,8 +52,25 @@ export const getPlottedDayTime = (x) => {
     return Math.max(0, Math.sin((Math.PI / 12) * x - Math.PI / 2));
 }
 
+export const countDayByHour = (hour) => {
+    return Math.floor(hour / 24) + 1;
+}
+
+export const formatTime = (time) => {
+    const fmTime = time % 24;
+    const decimal = fmTime % 1;
+    const hr = Math.floor(fmTime);
+    const min = Math.floor(60 * decimal);
+    if (hr > 12) {
+        return `${hr - 12}:${min >= 10 ? "" : "0"}${min} pm`;
+    } else if (hr === 0) {
+        return `${12}:${min >= 10 ? "" : "0"}${min} pm`;
+    }
+    return `${hr}:${min >= 10 ? "" : "0"}${min} am`;
+}
+
 export const scale = (val, src, dst) => {
-    if(val > src[1] || val < src[0]) {
+    if (val > src[1] || val < src[0]) {
         return null;
     }
     return ((val - src[0]) / (src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]

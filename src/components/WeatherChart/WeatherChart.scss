@@ -8,6 +8,57 @@
     canvas {
         position: absolute;
         top: 0;
-        left: 0;
+        left: -6px;
+    }
+
+    .moon-img {
+        position: fixed;
+        width: 25px;
+        height: 25px;
+        bottom: 25%;
+        left: calc(50% - 12px);
+    }
+    .day-text {
+        position: fixed;
+        text-align: center;
+        color: black;
+        font-size: 24px;
+        font-weight: 400;
+        width: 100%;
+        bottom: 35%;
+    }
+    .time-tag {
+        position: fixed;
+        width: 100%;
+        bottom: 15px;
+        text-align: center;
+        z-index: 21;
+        color: black;
+        font-size: 18px;
+        background-color: #f1f7ff;
+        border-top: 1px solid #a3d9f5;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid #f1f7ff;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 35px;
+            width: 0;
+            height: 150px;
+            border-left: 1px solid rgba(0, 0, 0, 0.2);
+        }
     }
 }

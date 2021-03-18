@@ -1,8 +1,8 @@
-import { convertToDayNight, generateTimeData, getPlottedDayTime, scale } from './helpers';
+import { convertToDayNight, countDayByHour, formatTime, generateTimeData, getPlottedDayTime, scale } from './helpers';
 
 describe("Generate time data", () => {
     it("Should return array length of 8", () => {
-        expect(generateTimeData(1).length).toBe(24);
+        expect(generateTimeData(1).length).toBe(25);
     });
 });
 
@@ -40,4 +40,16 @@ describe("Scale the range of a value to another range", () => {
     expect(scale(0, [0, 2], [1, 4])).toBe(1);
     expect(scale(2, [0, 2], [0, 4])).toBe(4);
     expect(scale(-2, [1, 5], [0, 10])).toBeNull();
+});
+
+describe("Count day by number of hours", () => {
+    expect(countDayByHour(6)).toBe(1);
+    expect(countDayByHour(25)).toBe(2);
+    expect(countDayByHour(45)).toBe(2);
+});
+
+describe("Convert floating point to time format", () => {
+    expect(formatTime(9.5)).toBe("9:30 am");
+    expect(formatTime(24.5)).toBe("12:30 pm");
+    expect(formatTime(26.25)).toBe("2:15 am");
 });

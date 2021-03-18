@@ -18,7 +18,7 @@ describe("Have invalid prop types", () => {
     it("Should not render", () => {
         const props = {
             name: 123,
-            onClick: () => console.log(test),
+            onClick: () => console.log("test"),
             style: { width: 30, heigh: 60 }
         }
         const propsErr = checkPropTypes(Icon.propTypes, props, 'props', Icon.name);
