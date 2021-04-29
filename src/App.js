@@ -9,6 +9,7 @@ function App() {
     return (
         <div className="weather-app-layout">
             <NavBar />
+            hello1
             <WeatherStatistic />
             <WeatherChart />
         </div>
