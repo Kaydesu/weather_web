@@ -12,6 +12,7 @@ function App() {
             hello1
             hello2
             <WeatherStatistic />
+            hello3
             <WeatherChart />
         </div>
     );
